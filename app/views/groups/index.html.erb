@@ -1,0 +1,28 @@
+<h1>Hi , <%= current_user.fname.capitalize %> <%=current_user.lname.capitalize%> !!</h1>
+<p>Here are the groups you may join</p>
+
+<div class="wrapper">
+  <div class="left">
+    <% @groups.each do |group|%>
+    <h3> <a href="/groups/<%=group.id%>"> <%=group.name%></a>    </h3>
+    <h5>Members: <%= group.users.count  %></h5>
+    <p><%=group.description%></p>
+    <% if group.user == current_user  %>
+    <p>  <a href="/groups/<%=group.id%>" data-method='delete'> Delete</a> </p>
+    <%end%>
+    <hr>
+    <%end%>
+
+  </div>
+
+
+  <form class="org" action="/groups/create" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    Group Name:
+    <input type="text" name="group[name]" value="">
+    <br>
+    Description:
+    <textarea name="group[description]" rows="4" cols="30"></textarea>
+    <input type="submit" name="submit" value="Create">
+  </form>
+</div>
