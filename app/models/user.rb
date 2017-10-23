@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :groups
   has_many :joins, dependent: :destroy
   has_many :groups_joined,  through: :joins, source: :group
-
+  
 
   def downcase_fields
       self.email.downcase!
